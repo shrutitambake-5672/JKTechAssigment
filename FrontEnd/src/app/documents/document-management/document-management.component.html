@@ -1,0 +1,58 @@
+<form (ngSubmit)="onUpload()" style="max-width:400px;margin:2rem auto;padding:2rem;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.08);background:#fff;">
+  <h2 style="text-align:center;margin-bottom:1.5rem;">Upload Document</h2>
+  <div style="margin-bottom:1rem;">
+    <label for="docTitle" style="display:block;margin-bottom:0.5rem;">Title</label>
+    <input id="docTitle" name="docTitle" type="text" [(ngModel)]="docTitle" class="form-control" style="width:100%;padding:0.5rem;" required>
+  </div>
+  <div style="margin-bottom:1.5rem;">
+    <label for="docFile" style="display:block;margin-bottom:0.5rem;">Select File</label>
+    <input id="docFile" name="docFile" type="file" accept="application/pdf" class="form-control" style="width:100%;" (change)="onFileSelected($event)" required>
+    <div *ngIf="ingestionStatus" style="margin-top:1rem; color: #1976d2;">{{ ingestionStatus }}</div>
+    <div *ngIf="uploadMessage" style="margin-top:1rem;">{{ uploadMessage }}</div>
+  </div>
+  <button type="submit"
+        [disabled]="!docTitle || !selectedFile"
+        style="width:100%;padding:0.75rem;background:#1976d2;color:#fff;border:none;border-radius:4px;font-weight:600;">
+    Upload
+  </button>
+</form>
+
+<!-- Document List Table -->
+<table *ngIf="documents.length" border="1" width="100%" style="margin-top:2rem;">
+  <tr>
+    <th>Title</th>
+    <th>File</th>
+    <th>Ingestion Status</th>
+    <th>Actions</th>
+  </tr>
+  <tr *ngFor="let doc of documents">
+    <td>
+      <span *ngIf="editDocId !== doc.id">{{ doc.title }}</span>
+      <div *ngIf="editDocId === doc.id">
+        <input [(ngModel)]="editDocTitle" placeholder="Title" />
+        <input type="file" (change)="onEditFileSelected($event)" />
+      </div>
+    </td>
+    <td>
+      <!-- <a [href]="doc.fileUrl" target="_blank">View</a> -->
+      <button (click)="downloadDocument(doc)">View</button>
+
+    </td>
+    <td>
+      {{ doc.status }}
+    </td>
+    <td>
+      <button *ngIf="editDocId !== doc.id" (click)="startEdit(doc)">Edit</button>
+      <button *ngIf="editDocId === doc.id" (click)="updateDocument(doc)">Update</button>
+      <button (click)="deleteDocument(doc)">Delete</button>
+    </td>
+
+  </tr>
+
+</table>
+
+<!-- Other document management UI above -->
+
+<!-- <app-ingestion-management></app-ingestion-management> -->
+
+<!-- Other document management UI below -->

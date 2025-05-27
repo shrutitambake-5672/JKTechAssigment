@@ -1,0 +1,61 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<style>
+  .header-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #1976d2;
+    padding: 1rem 2rem;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .header-nav a {
+    color: white;
+    margin-right: 1.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.2s;
+  }
+  .header-nav a.active,
+  .header-nav a:hover {
+    color: #ffd600;
+    text-decoration: underline;
+    cursor: pointer; /* <-- Add this line */
+  }
+  .main-content {
+    margin-top: 72px; /* Height of nav + some spacing */
+    padding: 2rem 1rem 1rem 1rem;
+  }
+</style>
+<button (click)="onNavClick('test')">Test Click</button>
+
+<nav class="header-nav">
+  <a routerLink="/login" *ngIf="!isLoggedIn">Login</a>
+  <a routerLink="/signup" *ngIf="!isLoggedIn">Sign Up</a>
+  <a routerLink="/logout" *ngIf="isLoggedIn" (click)="logout(); $event.preventDefault()">Logout</a>
+  <a routerLink="/user-management" *ngIf="isLoggedIn && isAdmin">User Management</a>
+  <a routerLink="/document-management" *ngIf="isLoggedIn">Document Management</a>
+  <!-- <a routerLink="/ingestion-management" *ngIf="isLoggedIn">Ingestion Management</a> -->
+</nav>
+<router-outlet></router-outlet>
+
+<div class="main-content">
+  <!-- Your existing content below, e.g. logo, welcome, etc. -->
+  <div>
+    <div>
+      <!-- ...existing SVG and content... -->
+    </div>
+  </div>
+</div>
+

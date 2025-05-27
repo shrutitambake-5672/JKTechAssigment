@@ -1,0 +1,15 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" style="max-width:350px;margin:2rem auto;padding:2rem;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.08);background:#fff;">
+  <h2 style="text-align:center;margin-bottom:1.5rem;">Login</h2>
+  <div *ngIf="loginError" style="color:red;text-align:center;margin-bottom:1rem;">{{ loginError }}</div>
+  <div style="margin-bottom:1rem;">
+    <label for="username" style="display:block;margin-bottom:0.5rem;">Username</label>
+    <input id="username" formControlName="username" type="text" class="form-control" style="width:100%;padding:0.5rem;" required>
+    <div *ngIf="submitted && loginForm.controls['username'].errors" style="color:red;font-size:0.9em;">Username is required.</div>
+  </div>
+  <div style="margin-bottom:1.5rem;">
+    <label for="password" style="display:block;margin-bottom:0.5rem;">Password</label>
+    <input id="password" formControlName="password" type="password" class="form-control" style="width:100%;padding:0.5rem;" required>
+    <div *ngIf="submitted && loginForm.controls['password'].errors" style="color:red;font-size:0.9em;">Password is required.</div>
+  </div>
+  <button type="submit" style="width:100%;padding:0.75rem;background:#1976d2;color:#fff;border:none;border-radius:4px;font-weight:600;">Login</button>
+</form>

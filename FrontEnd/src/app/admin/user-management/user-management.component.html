@@ -1,0 +1,40 @@
+<div style="max-width:600px;margin:2rem auto;">
+  <h2>User Management</h2>
+  <form [formGroup]="userForm" (ngSubmit)="addUser()" style="margin-bottom:2rem;">
+    <input formControlName="username" placeholder="Username" required>
+    <input formControlName="password" placeholder="Password" required type="password">
+    <select formControlName="role">
+      <option value="" disabled selected>Select role</option>
+      <option value="viewer">Viewer</option>
+      <option value="editor">Editor</option>
+      <option value="admin">Admin</option>
+    </select>
+    <button type="submit">Add User</button>
+  </form>
+  <div *ngIf="message" style="color:green;margin-bottom:1rem;">{{ message }}</div>
+  <table border="1" width="100%">
+    <tr>
+      <th>Username</th>
+      <th>Role</th>
+      <th>Actions</th>
+    </tr>
+    <tr *ngFor="let user of users">
+      <td>{{ user.username }}</td>
+      <td>
+        <!-- Show text if not editing, dropdown if editing -->
+        <span *ngIf="editUserId !== user.id">{{ user.role }}</span>
+        <select *ngIf="editUserId === user.id" [(ngModel)]="editUserData[user.id]" style="width:120px;">
+          <option value="viewer">Viewer</option>
+          <option value="editor">Editor</option>
+          <option value="admin">Admin</option>
+        </select>
+      </td>
+      <td>
+        <!-- Show Edit button if not editing, Update button if editing -->
+        <button *ngIf="editUserId !== user.id" (click)="startEdit(user)">Edit</button>
+        <button *ngIf="editUserId === user.id" (click)="updateUser(user)">Update</button>
+        <button (click)="deleteUser(user)">Delete</button>
+      </td>
+    </tr>
+  </table>
+</div>
